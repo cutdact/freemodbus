@@ -4,7 +4,7 @@
 
 ## General Flags
 PROJECT = demo
-MCU = atmega168
+MCU = atmega328p
 TARGET = demo
 
 CC=/opt/gcc-avr/bin/avr-gcc
@@ -18,7 +18,7 @@ COMMON = -mmcu=$(MCU)
 CFLAGS = $(COMMON) \
 		 -Iport -I. \
 		 -I../../modbus/rtu -I../../modbus/ascii -I../../modbus/include 
-CFLAGS += -Wall -gstabs -DF_CPU=20000000UL  -Os -Wall -Wstrict-prototypes
+CFLAGS += -Wall -gstabs -DF_CPU=16000000UL  -Os -Wall -Wstrict-prototypes
 
 CFLAGS += -Wp,-M,-MP,-MT,$(*F).o,-MF,dep/$(@F).d 
 
