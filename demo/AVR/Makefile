@@ -7,9 +7,16 @@ PROJECT = demo
 MCU = atmega328p
 TARGET = demo
 
-CC=/opt/gcc-avr/bin/avr-gcc
-OBJCOPY=/opt/gcc-avr/bin/avr-objcopy
-AVRDUDE=/opt/gcc-avr/bin/avrdude
+AVRDUDE_PROGRAMMER = arduino -b 115200
+AVRDUDE_PORT = /dev/ttyACM0
+
+CC=avr-gcc
+OBJCOPY=avr-objcopy
+AVRDUDE=avrdude
+
+
+# Compiler flag set the C Standard level.
+CSTANDARD = -std=gnu99
 
 ## Options common to compile, link and assembly rules
 COMMON = -mmcu=$(MCU)
@@ -73,10 +80,10 @@ $(TARGET).elf: $(OBJECTS) $(MBOBJECTS) $(MBPORTOBJECTS)
 
 %.cof: $(TARGET).elf
 	$(OBJCOPY) --debugging \
-		--change-section-address .data-0x800000 \
-		--change-section-address .bss-0x800000 \
-		--change-section-address .noinit-0x800000 \
-		--change-section-address .eeprom-0x810000 -O coff-avr $< $@
+	--change-section-address .data-0x800000 \
+	--change-section-address .bss-0x800000 \
+	--change-section-address .noinit-0x800000 \
+	--change-section-address .eepropm-0x810000 -0 coff-avr $< &@
 
 %.eep: $(TARGET).elf
 	$(OBJCOPY) $(HEX_EEPROM_FLAGS) -O ihex $< $@
@@ -85,7 +92,7 @@ $(TARGET).elf: $(OBJECTS) $(MBOBJECTS) $(MBPORTOBJECTS)
 	$(OBJCOPY) -h -S $< > $@
 
 flash:
-	$(AVRDUDE) -p m168 -c stk200 -U flash:w:$(TARGET).hex				
+	$(AVRDUDE) -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) -U flash:w:$(TARGET).hex				
 
 #size: ${TARGET}
 #	@echo
