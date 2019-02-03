@@ -117,6 +117,22 @@ typedef long    LONG;
 #define UPM1            UPM01
 #define UCSRC           UCSR0C
 
+#elif defined (__AVR_ATmega328p__)
+#define UCSRB           UCSR0B
+#define TXEN            TXEN0
+#define RXEN            RXEN0
+#define RXCIE           RXCIE0
+#define TXCIE           TXCIE0
+#define UDRE            UDRE0
+#define UBRR            UBRR0
+#define UCSRC           UCSR0C
+#define UPM1            UPM01
+#define UPM0            UPM00
+#define UCSZ0           UCSZ00
+#define UCSZ1           UCSZ01
+#define UDR             UDR0
+#define SIG_UART_TRANS  SIG_USART_TRANS
+
 #endif
 
 /* ----------------------- RS485 specifics ----------------------------------*/
