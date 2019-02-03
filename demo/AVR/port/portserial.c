@@ -33,6 +33,7 @@
 #include "mb.h"
 #include "mbport.h"
 
+
 #define UART_BAUD_RATE          9600
 #define UART_BAUD_CALC(UART_BAUD_RATE,F_OSC) \
     ( ( F_OSC ) / ( ( UART_BAUD_RATE ) * 16UL ) - 1 )
@@ -114,7 +115,7 @@ xMBPortSerialInit( UCHAR ucPORT, ULONG ulBaudRate, UCHAR ucDataBits, eMBParity e
     UCSRC = _BV( URSEL ) | ucUCSRC;
 #elif defined (__AVR_ATmega128__)
     UCSRC |= ucUCSRC;
-#elif defined (__AVR_ATmega328p__)
+#elif defined (__AVR_ATmega328P__)
     UCSRC |= ucUCSRC;
 #endif
 
